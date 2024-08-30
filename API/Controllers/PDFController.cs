@@ -24,6 +24,7 @@ namespace API.Controllers
                 var pdfBytes = await _pdfService.CreatePdfFromUserDataAsync(userId);
 
                 return File(pdfBytes, "application/pdf", "prijavnica.pdf");
+               // return Ok(pdfBytes);
             }
             catch (Exception ex)
             {

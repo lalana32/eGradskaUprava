@@ -18,7 +18,7 @@ public class PDFService : IPDFService
         _userManager = userManager;
     }
 
-   public async Task<byte[]> CreatePdfFromUserDataAsync(string userId)
+ public async Task<byte[]> CreatePdfFromUserDataAsync(string userId)
 {
     var user = await _userManager.FindByIdAsync(userId);
     if (user == null)
@@ -26,9 +26,16 @@ public class PDFService : IPDFService
         throw new Exception("User not found");
     }
 
-    // HTML template
-    var htmlTemplate = @"
-    <!DOCTYPE html>
+    // Prikupi trenutni datum
+    string todayDate = DateTime.Now.ToString("yyyy-MM-dd");
+
+    // Prikupi ime korisnika
+    string firstName = user.FirstName ?? "Ime";
+
+    // Koristite StringBuilder za kreiranje HTML-a
+    var htmlBuilder = new StringBuilder();
+    
+    htmlBuilder.AppendLine(@"<!DOCTYPE html>
     <html lang='bs'>
     <head>
         <meta charset='UTF-8'>
@@ -42,8 +49,8 @@ public class PDFService : IPDFService
             h2 { margin: 20px 0; }
             .section-top, .section-middle, .section-main { margin-bottom: 20px; }
             .row { display: flex; justify-content: space-between; margin-bottom: 10px; }
-            label { flex: 1; margin-right: 10px; font-weight: bold; }
-            input[type='text'], input[type='date'] { flex: 2; padding: 5px; border: 1px solid #cccccc; border-radius: 4px; }
+            .label { flex: 1; margin-right: 10px; font-weight: bold; }
+            .value { flex: 2; padding: 5px; border: 1px solid #cccccc; border-radius: 4px; background-color: #f5f5f5; }
             p { text-align: center; margin-bottom: 20px; font-style: italic; color: #666666; }
             .legal-section { margin-top: 30px; font-size: 14px; color: #555555; border-top: 1px solid #dddddd; padding-top: 20px; }
             .consent-section { margin-top: 20px; font-size: 14px; }
@@ -54,58 +61,88 @@ public class PDFService : IPDFService
             <h1>PRIMJERAK CIPS PRIJAVNICE</h1>
             <section class='section-top'>
                 <div class='row'>
-                    <label>Naziv organa:</label>
-                    <input type='text' name='nazivOrgana' value='{0}' readonly>
+                    <span class='label'>Naziv organa:</span>
+                    <span class='value'>eGRAD</span>
                 </div>
                 <div class='row'>
-                    <label>Broj:</label>
-                    <input type='text' name='broj' value='{1}' readonly>
+                    <span class='label'>Broj:</span>
+                    <span class='value'>B23</span>
                 </div>
                 <div class='row'>
-                    <label>Datum:</label>
-                    <input type='date' name='datum' value='{2}' readonly>
+                    <span class='label'>Datum:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(todayDate);
+    htmlBuilder.AppendLine(@"</span>
                 </div>
             </section>
             <section class='section-middle'>
                 <div class='row'>
-                    <label>Ime:</label>
-                    <input type='text' name='ime' value='{3}' readonly>
+                    <span class='label'>Ime:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(firstName);
+    htmlBuilder.AppendLine(@"</span>
                 </div>
                 <div class='row'>
-                    <label>Prezime:</label>
-                    <input type='text' name='prezime' value='{4}' readonly>
+                    <span class='label'>Prezime:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(user.LastName ?? "Prezime");
+    htmlBuilder.AppendLine(@"</span>
                 </div>
             </section>
             <section class='section-main'>
                 <h2>OBAVJEŠTENJE / OBAVIJEST / ОБАВЈЕШТЕЊЕ</h2>
                 <p>da je uveden u evidenciju prebivališta-boravišta sa ličnim/osobnim podacima / да је уведен у евиденцију пребивалишта-боравишта са личним подацима</p>
                 <div class='row'>
-                    <label>JMB/МБ:</label>
-                    <input type='text' name='jmb' value='{5}' readonly>
+                    <span class='label'>JMB/МБ:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(user.JMBG ?? "JMB/МБ");
+    htmlBuilder.AppendLine(@"</span>
                 </div>
                 <div class='row'>
-                    <label>Ime/Име:</label>
-                    <input type='text' name='ime2' value='{6}' readonly>
+                    <span class='label'>Ime/Име:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(user.FirstName ?? "Ime/Име");
+    htmlBuilder.AppendLine(@"</span>
                 </div>
                 <div class='row'>
-                    <label>Prezime/Презиме:</label>
-                    <input type='text' name='prezime2' value='{7}' readonly>
+                    <span class='label'>Prezime/Презиме:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(user.LastName ?? "Prezime/Презиме");
+    htmlBuilder.AppendLine(@"</span>
                 </div>
                 <div class='row'>
-                    <label>Spol/Пол:</label>
-                    <input type='text' name='spol' value='{8}' readonly>
+                    <span class='label'>Spol/Пол:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(user.Pol ?? "Spol/Пол");
+    htmlBuilder.AppendLine(@"</span>
                 </div>
                 <div class='row'>
-                    <label>Datum rođenja:</label>
-                    <input type='date' name='datumRodjenja' value='{9}' readonly>
+                    <span class='label'>Datum rođenja:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(user.DatumRodjenja.ToString("yyyy-MM-dd") ?? "Datum rođenja");
+    htmlBuilder.AppendLine(@"</span>
                 </div>
                 <div class='row'>
-                    <label>Općina prebivališta/Општина пребивалишта:</label>
-                    <input type='text' name='opcinaPrebivalista' value='{10}' readonly>
+                    <span class='label'>Općina prebivališta/Општина пребивалишта:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(user.OpstinaPrebivalista ?? "Općina prebivališta/Општина пребивалишта");
+    htmlBuilder.AppendLine(@"</span>
                 </div>
                 <div class='row'>
-                    <label>Adresa prebivališta/Адреса пребивалишта:</label>
-                    <input type='text' name='adresaPrebivalista' value='{11}' readonly>
+                    <span class='label'>Adresa prebivališta/Адреса пребивалишта:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(user.AdresaPrebivalista ?? "Adresa prebivališta/Адреса пребивалишта");
+    htmlBuilder.AppendLine(@"</span>
                 </div>
             </section>
             <section class='legal-section'>
@@ -123,22 +160,9 @@ public class PDFService : IPDFService
             </section>
         </div>
     </body>
-    </html>";
+    </html>");
 
-    // Formatiraj HTML sa korisničkim podacima
-    var formattedHtml = string.Format(htmlTemplate,
-        "Naziv organa", // Replace with actual data
-        "Broj",         // Replace with actual data
-        "Datum",        // Replace with actual data
-        user.FirstName,
-        user.LastName,
-        user.JMBG,
-        user.FirstName,
-        user.LastName,
-        user.Pol,
-        user.DatumRodjenja.ToString("yyyy-MM-dd"),
-        user.OpstinaPrebivalista,
-        user.AdresaPrebivalista);
+    var htmlContent = htmlBuilder.ToString();
 
     using (var memoryStream = new MemoryStream())
     {
@@ -147,7 +171,7 @@ public class PDFService : IPDFService
             using (var pdfDocument = new PdfDocument(pdfWriter))
             {
                 // Convert HTML to PDF using the memory stream
-                HtmlConverter.ConvertToPdf(new MemoryStream(Encoding.UTF8.GetBytes(formattedHtml)), pdfDocument);
+                HtmlConverter.ConvertToPdf(new MemoryStream(Encoding.UTF8.GetBytes(htmlContent)), pdfDocument);
             }
         }
 
@@ -155,5 +179,11 @@ public class PDFService : IPDFService
     }
 }
 
-    
+
+
+
+
 }
+
+    
+

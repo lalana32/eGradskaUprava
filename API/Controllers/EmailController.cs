@@ -14,27 +14,25 @@ namespace API.Controllers
         _emailService = emailService;
     }
 
-    [HttpGet("send")]
-public async Task<IActionResult> SendEmail()
-{
-   /* if (string.IsNullOrEmpty(request.ToEmail))
-        return BadRequest(new { Title = "Invalid email", Detail = "Email address cannot be null or empty." });
+ [HttpPost("send-pdf")]
+        public async Task<IActionResult> SendPdfEmail([FromQuery] string userId, [FromQuery] string toEmail, [FromQuery] string subject, [FromQuery] string message)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(toEmail) || string.IsNullOrEmpty(subject) || string.IsNullOrEmpty(message))
+            {
+                return BadRequest("Invalid input parameters.");
+            }
 
-    if (string.IsNullOrEmpty(request.Subject))
-        return BadRequest(new { Title = "Invalid subject", Detail = "Subject cannot be null or empty." });
-
-    if (string.IsNullOrEmpty(request.Message))
-        return BadRequest(new { Title = "Invalid message", Detail = "Message cannot be null or empty." });
-*/
-    try
-    {
-        await _emailService.SendEmailAsync("ikanoviczeljko362@gmail.com", "Test", "test");
-        return Ok(new { Message = "Email sent successfully." });
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, new { Title = "Error sending email", Detail = ex.Message });
-    }
-}
+            try
+            {
+                await _emailService.SendEmailWithPdfAsync(userId, toEmail, subject, message);
+                return Ok("Email with PDF sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if needed
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+   
     }
 }

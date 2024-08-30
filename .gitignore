@@ -4,3 +4,7 @@
 
 /.vs
 /API/obj/Release/net7.0
+/API/obj/Debug/net7.0/API.AssemblyInfo.cs
+/API/obj/Debug/net7.0/API.AssemblyInfoInputs.cache
+/API/obj/API.csproj.nuget.dgspec.json
+/API/obj/project.nuget.cache

@@ -75,6 +75,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 var app = builder.Build();
 

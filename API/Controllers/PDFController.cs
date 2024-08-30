@@ -14,11 +14,22 @@ namespace API.Controllers
             _pdfService=pdfService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetAction()
+     
+
+        [HttpGet("generate/{userId}")]
+        public async Task<IActionResult> GeneratePdf(string userId)
         {
-            var pdf =  _pdfService.CreatePdf("zeljko","ikanovic");
-            return Ok(pdf);
+            try
+            {
+                var pdfBytes = await _pdfService.CreatePdfFromUserDataAsync(userId);
+
+                return File(pdfBytes, "application/pdf", "prijavnica.pdf");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception as needed
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

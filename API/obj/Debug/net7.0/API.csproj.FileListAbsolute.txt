@@ -170,3 +170,4 @@ C:\Users\ikano\source\repos\lalana32\eGradskaUprava\api\obj\Debug\net7.0\refint\
 C:\Users\ikano\source\repos\lalana32\eGradskaUprava\api\obj\Debug\net7.0\API.pdb
 C:\Users\ikano\source\repos\lalana32\eGradskaUprava\api\obj\Debug\net7.0\API.genruntimeconfig.cache
 C:\Users\ikano\source\repos\lalana32\eGradskaUprava\api\obj\Debug\net7.0\ref\API.dll
+C:\Users\ikano\source\repos\lalana32\eGradskaUprava\api\bin\Debug\net7.0\itext.html2pdf.dll

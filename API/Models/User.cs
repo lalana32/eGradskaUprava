@@ -12,6 +12,14 @@ namespace API.Models
             public required string FirstName { get; set; }
             public required string LastName { get; set; }
             public required string JMBG { get; set; }
+            public  string Pol { get; set; }
+            public  DateOnly DatumRodjenja {get;set;}
+
+            public  string AdresaPrebivalista {get;set;}
+            public  string OpstinaPrebivalista{get;set;}
+         
+         
+
         }
 
 }

@@ -19,7 +19,8 @@
           "System.IdentityModel.Tokens.Jwt": "8.0.1",
           "itext7": "8.0.5",
           "itext7.bouncy-castle-adapter": "8.0.5",
-          "itext7.commons": "8.0.5"
+          "itext7.commons": "8.0.5",
+          "itext7.pdfhtml": "5.0.5"
         },
         "runtime": {
           "API.dll": {}
@@ -141,6 +142,17 @@
           }
         }
       },
+      "itext.pdfhtml/5.0.5": {
+        "dependencies": {
+          "itext": "8.0.5"
+        },
+        "runtime": {
+          "lib/netstandard2.0/itext.html2pdf.dll": {
+            "assemblyVersion": "5.0.5.0",
+            "fileVersion": "5.0.5.0"
+          }
+        }
+      },
       "itext7/8.0.5": {
         "dependencies": {
           "itext": "8.0.5"
@@ -154,6 +166,11 @@
       "itext7.commons/8.0.5": {
         "dependencies": {
           "itext.commons": "8.0.5"
+        }
+      },
+      "itext7.pdfhtml/5.0.5": {
+        "dependencies": {
+          "itext.pdfhtml": "5.0.5"
         }
       },
       "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.0": {
@@ -1165,6 +1182,13 @@
       "path": "itext.commons/8.0.5",
       "hashPath": "itext.commons.8.0.5.nupkg.sha512"
     },
+    "itext.pdfhtml/5.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MiqeEAkE4RJy8r4VMyPMTEyLT2ROLyVcZO2QqMv60s5n7jvwye1T9oeB8DpvqMW6P0B2u3PZqRt8PS0iNHpicw==",
+      "path": "itext.pdfhtml/5.0.5",
+      "hashPath": "itext.pdfhtml.5.0.5.nupkg.sha512"
+    },
     "itext7/8.0.5": {
       "type": "package",
       "serviceable": true,
@@ -1185,6 +1209,13 @@
       "sha512": "sha512-Yf3Pg96ysRftORrYBSZiwDy7aguNQrmYEOdWSDdzeiKVSRhqrbs7ydyzJQaDR/IP+aNb+tDByzU3yFZQohwk+Q==",
       "path": "itext7.commons/8.0.5",
       "hashPath": "itext7.commons.8.0.5.nupkg.sha512"
+    },
+    "itext7.pdfhtml/5.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lFNsTrwUT8MPUcQqW7TKcxBa4ha3NGsls4L+j/pao8DZzlNrKIrGu+BZpVo9tjQRdl4pQgAMNav0K5C+cU+/zA==",
+      "path": "itext7.pdfhtml/5.0.5",
+      "hashPath": "itext7.pdfhtml.5.0.5.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.0": {
       "type": "package",

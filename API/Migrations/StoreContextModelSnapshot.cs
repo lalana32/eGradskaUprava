@@ -25,8 +25,15 @@ namespace API.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("AdresaPrebivalista")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateOnly>("DatumRodjenja")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -62,6 +69,10 @@ namespace API.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("OpstinaPrebivalista")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
@@ -70,6 +81,10 @@ namespace API.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Pol")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
@@ -121,13 +136,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2d57f95f-9a41-4e5f-bd36-d15ec9d68643",
+                            Id = "1f0d30ec-8b83-4249-a8ca-a242a55b3e98",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "35a59904-bd30-45bd-b24e-e7c6badbc073",
+                            Id = "fe31bac2-ffa0-4cfe-b926-8ea3d337db3b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

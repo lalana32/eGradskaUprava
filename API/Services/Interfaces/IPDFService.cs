@@ -2,6 +2,7 @@ namespace API.Services.Interfaces
 {
     public interface IPDFService
     {
-          public byte[] CreatePdf(string password, string username);
+         // public byte[] CreatePdf(string password, string username);
+         public  Task<byte[]> CreatePdfFromUserDataAsync(string userId);
     }
 }

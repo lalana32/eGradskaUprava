@@ -1,6 +1,7 @@
+using API.AutoMapper;
 namespace API.AutoMapper
 {
-    public class MapperProfile:Profile
+    public class MapperProfile
     {
         
         public MapperProfile()

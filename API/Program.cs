@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using API;
+using API.Services.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,6 +48,8 @@ builder.Services.AddCors();
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
+ builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 
 builder.Services.AddSwaggerGen(c =>
 {

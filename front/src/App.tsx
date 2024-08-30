@@ -15,11 +15,11 @@ import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import DefaultLayout from './layout/DefaultLayout';
 import AppointmentForm from './pages/AppointmentForm'
-/*import HomePage from './pages/HomePage/HomePage';
-import QueueDocuments from './pages/Queue/QueueDocuments';
+import HomePage from './pages/HomePage/HomePage';
+/*import QueueDocuments from './pages/Queue/QueueDocuments';
 import QueueRequests from './pages/Queue/QueueRequests';
-import QueuePaying from './pages/Queue/QueuePaying';
-import MyAppointments from './pages/MyAppointments';*/
+import QueuePaying from './pages/Queue/QueuePaying';*/
+import MyAppointments from './pages/MyAppointments';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -51,7 +51,7 @@ function App() {
           element={
             <>
               <PageTitle title="Moji termini" />
-              <AppointmentForm/>
+              <MyAppointments/>
             </>
           }
         />
@@ -60,7 +60,7 @@ function App() {
           element={
             <>
               <PageTitle title="Zakažite termin" />
-              <Profile />
+              <AppointmentForm />
             </>
           }
         />
@@ -92,7 +92,7 @@ function App() {
           }
         />
         <Route
-          path="/settings"
+          path="/podešavanja"
           element={
             <>
               <PageTitle title="Podešavanja naloga" />

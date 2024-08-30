@@ -48,6 +48,7 @@ builder.Services.AddCors();
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<IPDFService,PDFService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
  builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 

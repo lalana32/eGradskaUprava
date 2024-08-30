@@ -18,14 +18,14 @@ namespace API.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly StoreContext _context;
-        private readonly IMapper _mapper;
+       
         private readonly UserManager<User> _userManager;
 
-        public AppointmentController(StoreContext context, IMapper mapper, UserManager<User> userManager)
+        public AppointmentController(StoreContext context,  UserManager<User> userManager)
         {
             _userManager = userManager;
             _context = context;
-            _mapper = mapper;
+            
         }
 
         

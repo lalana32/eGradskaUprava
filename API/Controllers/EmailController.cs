@@ -33,6 +33,25 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+          [HttpPost("send-driver-license-email")]
+        public async Task<IActionResult> SendDriverLicenseEmail([FromQuery] string userId, [FromQuery] string toEmail, [FromQuery] string subject, [FromQuery] string message)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(toEmail) || string.IsNullOrEmpty(subject) || string.IsNullOrEmpty(message))
+            {
+                return BadRequest("Missing required parameters.");
+            }
+
+            try
+            {
+                await _emailService.SendEmailWithDriverLicensePdfAsync(userId, toEmail, subject, message);
+                return Ok("Email sent successfully.");
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
    
     }
 }

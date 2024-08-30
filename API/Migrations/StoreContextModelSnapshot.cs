@@ -54,6 +54,96 @@ namespace API.Migrations
                     b.ToTable("Appointments");
                 });
 
+            modelBuilder.Entity("API.Models.AppointmentType", b =>
+                {
+                    b.Property<string>("AppointmentTypeID")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AppointmentTypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("AppointmentTypeID");
+
+                    b.ToTable("AppointmentTypes");
+                });
+
+            modelBuilder.Entity("API.Models.Municipality", b =>
+                {
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MunicipalityName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ZipCode");
+
+                    b.ToTable("Municipalities");
+                });
+
+            modelBuilder.Entity("API.Models.Request", b =>
+                {
+                    b.Property<int>("RequestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RequestId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Requests");
+                });
+
+            modelBuilder.Entity("API.Models.RequestSubtype", b =>
+                {
+                    b.Property<int>("RequestSubtypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RequestSubtypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("RequestTypeID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RequestSubtypeID");
+
+                    b.HasIndex("RequestTypeID");
+
+                    b.ToTable("RequestSubtypes");
+                });
+
+            modelBuilder.Entity("API.Models.RequestType", b =>
+                {
+                    b.Property<int>("RequestTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("RequestId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RequestTypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RequestTypeID");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("RequestTypes");
+                });
+
             modelBuilder.Entity("API.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -173,13 +263,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "af6e43d5-b4bb-4235-9106-ed1ae42f5f38",
+                            Id = "94e20b8a-1997-4d50-b1f8-e7a47ef454c9",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "28037032-97a8-4307-a16e-e4a0528f7b3e",
+                            Id = "fd9da859-dbda-4586-9e59-12c75656f8aa",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -287,6 +377,27 @@ namespace API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("API.Models.Request", b =>
+                {
+                    b.HasOne("API.Models.User", null)
+                        .WithMany("Requests")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("API.Models.RequestSubtype", b =>
+                {
+                    b.HasOne("API.Models.RequestType", null)
+                        .WithMany("RequestTypeList")
+                        .HasForeignKey("RequestTypeID");
+                });
+
+            modelBuilder.Entity("API.Models.RequestType", b =>
+                {
+                    b.HasOne("API.Models.Request", null)
+                        .WithMany("RequestTypeList")
+                        .HasForeignKey("RequestId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -336,6 +447,21 @@ namespace API.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("API.Models.Request", b =>
+                {
+                    b.Navigation("RequestTypeList");
+                });
+
+            modelBuilder.Entity("API.Models.RequestType", b =>
+                {
+                    b.Navigation("RequestTypeList");
+                });
+
+            modelBuilder.Entity("API.Models.User", b =>
+                {
+                    b.Navigation("Requests");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,3 +1,4 @@
+global using System.ComponentModel.DataAnnotations;
 using System.Text;
 using API.Data;
 using API.Models;

@@ -28,7 +28,11 @@ namespace API.Data
             );
         }
          public DbSet<Appointment> Appointments { get; set; }
-     //   public DbSet<Appointment> Appointments { get; set; }
-
+         public DbSet<AppointmentType> AppointmentTypes { get; set; }
+         public DbSet<Municipality> Municipalities { get; set; }
+         public DbSet<Request> Requests { get; set; }
+         public DbSet<RequestType> RequestTypes { get; set; }
+         public DbSet<RequestSubtype> RequestSubtypes { get; set; }
+         
     }
 }

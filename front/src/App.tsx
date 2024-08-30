@@ -5,17 +5,21 @@ import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
-import Calendar from './pages/Calendar';
 import Chart from './pages/Chart';
-import ECommerce from './pages/Dashboard/ECommerce';
 import FormElements from './pages/Form/FormElements';
 import FormLayout from './pages/Form/FormLayout';
-import AppointmentForm from './pages/AppointmentForm';
+import Profile from './pages/AppointmentForm';
 import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import DefaultLayout from './layout/DefaultLayout';
+import AppointmentForm from './pages/AppointmentForm'
+/*import HomePage from './pages/HomePage/HomePage';
+import QueueDocuments from './pages/Queue/QueueDocuments';
+import QueueRequests from './pages/Queue/QueueRequests';
+import QueuePaying from './pages/Queue/QueuePaying';
+import MyAppointments from './pages/MyAppointments';*/
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -39,25 +43,24 @@ function App() {
           element={
             <>
               <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <ECommerce />
             </>
           }
         />
         <Route
-          path="/calendar"
+          path="/my-appointments"
           element={
             <>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Calendar />
-            </>
-          }
-        />
-        <Route
-          path="/forme"
-          element={
-            <>
-              <PageTitle title="Forma za zakazivanje" />
+              <PageTitle title="Moji termini" />
               <AppointmentForm/>
+            </>
+          }
+        />
+        <Route
+          path="/create-appointment"
+          element={
+            <>
+              <PageTitle title="Zakažite termin" />
+              <Profile />
             </>
           }
         />
@@ -92,7 +95,7 @@ function App() {
           path="/settings"
           element={
             <>
-              <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Podešavanja naloga" />
               <Settings />
             </>
           }
@@ -101,7 +104,7 @@ function App() {
           path="/chart"
           element={
             <>
-              <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Statistika" />
               <Chart />
             </>
           }
@@ -128,7 +131,7 @@ function App() {
           path="/auth/signin"
           element={
             <>
-              <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Signin" />
               <SignIn />
             </>
           }
@@ -139,6 +142,30 @@ function App() {
             <>
               <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <SignUp />
+            </>
+          }
+        />
+        <Route
+          path="/queue-documents"
+          element={
+            <>
+              <PageTitle title="Red čekanja - dokumenti" />
+            </>
+          }
+        />
+        <Route
+          path="/queue-paying"
+          element={
+            <>
+              <PageTitle title="Red čekanja - plaćanje" />
+            </>
+          }
+        />
+        <Route
+          path="/queue-requests"
+          element={
+            <>
+              <PageTitle title="Red čekanja - zahtjevi" />
             </>
           }
         />

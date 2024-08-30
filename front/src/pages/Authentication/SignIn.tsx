@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import { useForm, FieldValues, SubmitHandler } from 'react-hook-form';
-import { logIn } from '../../slices/AuthSlice.ts';
+import { logIn } from '../../slices/authSlice';
 import { AppDispatch } from '../../store/configureStore.ts';
 
 import { useDispatch } from 'react-redux';

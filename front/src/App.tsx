@@ -14,12 +14,11 @@ import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import DefaultLayout from './layout/DefaultLayout';
-import AppointmentForm from './pages/AppointmentForm'
-/*import HomePage from './pages/HomePage/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import QueueDocuments from './pages/Queue/QueueDocuments';
 import QueueRequests from './pages/Queue/QueueRequests';
 import QueuePaying from './pages/Queue/QueuePaying';
-import MyAppointments from './pages/MyAppointments';*/
+import MyAppointments from './pages/MyAppointments';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -43,6 +42,7 @@ function App() {
           element={
             <>
               <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <HomePage />
             </>
           }
         />
@@ -51,7 +51,7 @@ function App() {
           element={
             <>
               <PageTitle title="Moji termini" />
-              <AppointmentForm/>
+              <MyAppointments />
             </>
           }
         />
@@ -131,7 +131,7 @@ function App() {
           path="/auth/signin"
           element={
             <>
-              <PageTitle title="Signin" />
+              <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <SignIn />
             </>
           }
@@ -150,6 +150,7 @@ function App() {
           element={
             <>
               <PageTitle title="Red čekanja - dokumenti" />
+              <QueueDocuments />
             </>
           }
         />
@@ -158,6 +159,7 @@ function App() {
           element={
             <>
               <PageTitle title="Red čekanja - plaćanje" />
+              <QueuePaying />
             </>
           }
         />
@@ -166,6 +168,7 @@ function App() {
           element={
             <>
               <PageTitle title="Red čekanja - zahtjevi" />
+              <QueueRequests />
             </>
           }
         />

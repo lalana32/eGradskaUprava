@@ -12,6 +12,10 @@ namespace API.Data
 {
     public class StoreContext : IdentityDbContext<User>
     {
+        public StoreContext()
+        {
+            
+        }
         public StoreContext(DbContextOptions options) : base(options)
         {
         }
@@ -23,6 +27,8 @@ namespace API.Data
                 new IdentityRole{Name="Admin",NormalizedName="ADMIN"}
             );
         }
+         public DbSet<Appointment> Appointments { get; set; }
+     //   public DbSet<Appointment> Appointments { get; set; }
 
     }
 }

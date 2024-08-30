@@ -17,6 +17,157 @@ public class PDFService : IPDFService
     {
         _userManager = userManager;
     }
+
+    public async Task<byte[]> CreatePassportPdfFromUserDataAsync(string userId)
+{
+    var user = await _userManager.FindByIdAsync(userId);
+    if (user == null)
+    {
+        throw new Exception("User not found");
+    }
+
+    // Collect current date
+    string todayDate = DateTime.Now.ToString("yyyy-MM-dd");
+
+    // Collect user details
+    string firstName = user.FirstName ?? "Ime";
+    string lastName = user.LastName ?? "Prezime";
+    string birthDate = user.DatumRodjenja.ToString("yyyy-MM-dd") ?? "Datum rođenja";
+    string jmbg = user.JMBG ?? "JMBG";
+    string address = user.AdresaPrebivalista ?? "Adresa prebivališta";
+    string nationality =  "Nacionalnost";  // Assuming you have this field in your user model
+
+    // Use StringBuilder to create HTML content
+    var htmlBuilder = new StringBuilder();
+
+    htmlBuilder.AppendLine(@"<!DOCTYPE html>
+    <html lang='bs'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>ZAHTJEV ZA PASOŠ</title>
+        <style>
+            body { font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 20px; }
+            .form-container { max-width: 800px; margin: auto; padding: 20px; background-color: #ffffff; border: 1px solid #dddddd; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+            h1, h2 { text-align: center; color: #333333; }
+            h1 { margin-bottom: 20px; }
+            h2 { margin: 20px 0; }
+            .section-top, .section-middle, .section-main { margin-bottom: 20px; }
+            .row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+            .label { flex: 1; margin-right: 10px; font-weight: bold; }
+            .value { flex: 2; padding: 5px; border: 1px solid #cccccc; border-radius: 4px; background-color: #f5f5f5; }
+            p { text-align: center; margin-bottom: 20px; font-style: italic; color: #666666; }
+            .legal-section { margin-top: 30px; font-size: 14px; color: #555555; border-top: 1px solid #dddddd; padding-top: 20px; }
+            .signature-box { border: 1px solid #000; width: 200px; height: 100px; margin: 20px auto; text-align: center; padding-top: 40px; }
+        </style>
+    </head>
+    <body>
+        <div class='form-container'>
+            <h1>ZAHTJEV ZA IZDAVANJE PASOŠA</h1>
+            <section class='section-top'>
+                <div class='row'>
+                    <span class='label'>Naziv organa:</span>
+                    <span class='value'>eGRAD</span>
+                </div>
+                <div class='row'>
+                    <span class='label'>Broj:</span>
+                    <span class='value'>B23</span>
+                </div>
+                <div class='row'>
+                    <span class='label'>Datum:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(todayDate);
+    htmlBuilder.AppendLine(@"</span>
+                </div>
+            </section>
+            <section class='section-middle'>
+                <div class='row'>
+                    <span class='label'>Ime:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(firstName);
+    htmlBuilder.AppendLine(@"</span>
+                </div>
+                <div class='row'>
+                    <span class='label'>Prezime:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(lastName);
+    htmlBuilder.AppendLine(@"</span>
+                </div>
+                <div class='row'>
+                    <span class='label'>Datum rođenja:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(birthDate);
+    htmlBuilder.AppendLine(@"</span>
+                </div>
+                <div class='row'>
+                    <span class='label'>JMBG:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(jmbg);
+    htmlBuilder.AppendLine(@"</span>
+                </div>
+                <div class='row'>
+                    <span class='label'>Adresa prebivališta:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(address);
+    htmlBuilder.AppendLine(@"</span>
+                </div>
+                <div class='row'>
+                    <span class='label'>Nacionalnost:</span>
+                    <span class='value'>");
+
+    htmlBuilder.AppendLine(nationality);
+    htmlBuilder.AppendLine(@"</span>
+                </div>
+            </section>
+            <section class='section-main'>
+                <h2>PODACI O PASOŠU</h2>
+                <div class='row'>
+                    <span class='label'>Broj pasoša:</span>
+                    <span class='value'>123456789</span> <!-- Example static value -->
+                </div>
+                <div class='row'>
+                    <span class='label'>Datum izdavanja:</span>
+                    <span class='value'>2024-08-30</span> <!-- Example static value -->
+                </div>
+                <div class='row'>
+                    <span class='label'>Datum isteka:</span>
+                    <span class='value'>2034-08-30</span> <!-- Example static value -->
+                </div>
+            </section>
+            <section class='legal-section'>
+                <h2>Zakonska regulativa</h2>
+                <p>Prikupljanje, obrada, i čuvanje podataka u ovoj prijavnici vrši se u skladu sa Zakonom o zaštiti ličnih podataka Bosne i Hercegovine.</p>
+            </section>
+            <div class='signature-box'>
+                <p>Potpis</p>
+            </div>
+        </div>
+    </body>
+    </html>");
+
+    var htmlContent = htmlBuilder.ToString();
+
+    using (var memoryStream = new MemoryStream())
+    {
+        using (var pdfWriter = new PdfWriter(memoryStream))
+        {
+            using (var pdfDocument = new PdfDocument(pdfWriter))
+            {
+                // Convert HTML to PDF using the memory stream
+                HtmlConverter.ConvertToPdf(new MemoryStream(Encoding.UTF8.GetBytes(htmlContent)), pdfDocument);
+            }
+        }
+
+        return memoryStream.ToArray();
+    }
+}
+
 public async Task<byte[]> CreateDriverLicensePdfFromUserDataAsync(string userId)
 {
     var user = await _userManager.FindByIdAsync(userId);

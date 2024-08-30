@@ -136,7 +136,8 @@ namespace API.Controllers
             user.LastName = updateUserDTO.LastName;
             user.UserName = updateUserDTO.UserName;
             user.Email = updateUserDTO.Email;
-            
+            user.AdresaPrebivalista = updateUserDTO.AdresaPrebivalista;
+            user.OpstinaPrebivalista = updateUserDTO.OpstinaPrebivalista;
 
             var result = await _userManager.UpdateAsync(user);
             

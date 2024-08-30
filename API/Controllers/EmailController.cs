@@ -14,6 +14,27 @@ namespace API.Controllers
         _emailService = emailService;
     }
 
+            [HttpPost("send-passport-pdf")]
+        public async Task<IActionResult> SendPassportPdfEmailAsync([FromQuery] string userId, [FromQuery] string toEmail, [FromQuery] string subject, [FromQuery] string message)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(toEmail) || string.IsNullOrEmpty(subject) || string.IsNullOrEmpty(message))
+            {
+                return BadRequest("Invalid input parameters.");
+            }
+
+            try
+            {
+                await _emailService.SendEmailWithPassportPdfAsync(userId, toEmail, subject, message);
+                return Ok("Email with passport PDF sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                // Log exception if using a logging framework
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
  [HttpPost("send-pdf")]
         public async Task<IActionResult> SendPdfEmail([FromQuery] string userId, [FromQuery] string toEmail, [FromQuery] string subject, [FromQuery] string message)
         {

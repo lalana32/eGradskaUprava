@@ -4,6 +4,8 @@ export interface User {
   firstName: string;
   lastName: string;
   userName: string;
+  adresaPrebivalista: string;
+  opstinaPrebivalista: string;
   roles?: string[];
 
   jmbg: string;

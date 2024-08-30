@@ -24,5 +24,7 @@ namespace API.Data
             );
         }
 
+        public DbSet<Appointment> Appointments { get; set; }
+
     }
 }

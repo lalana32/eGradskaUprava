@@ -17,6 +17,43 @@ namespace API.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
 
+            modelBuilder.Entity("API.Models.Appointment", b =>
+                {
+                    b.Property<int>("AppointmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AppointmentTime")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ServiceSubType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ServiceType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("AppointmentId");
+
+                    b.ToTable("Appointments");
+                });
+
             modelBuilder.Entity("API.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -121,13 +158,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2d57f95f-9a41-4e5f-bd36-d15ec9d68643",
+                            Id = "5d6984df-7f8d-4a7a-88ff-d72b2ba4212c",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "35a59904-bd30-45bd-b24e-e7c6badbc073",
+                            Id = "86f185eb-0c75-4aee-ac5e-5665c0594c90",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

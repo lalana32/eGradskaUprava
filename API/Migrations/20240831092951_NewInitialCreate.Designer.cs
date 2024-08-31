@@ -11,14 +11,158 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240830174259_UpdateUser")]
-    partial class UpdateUser
+    [Migration("20240831092951_NewInitialCreate")]
+    partial class NewInitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
+
+            modelBuilder.Entity("API.Models.Appointment", b =>
+                {
+                    b.Property<int>("AppointmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AppointmentTime")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AppointmentTypeID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ServiceSubType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ServiceType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("AppointmentId");
+
+                    b.HasIndex("AppointmentTypeID");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("API.Models.AppointmentType", b =>
+                {
+                    b.Property<string>("AppointmentTypeID")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AppointmentTypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("AppointmentTypeID");
+
+                    b.ToTable("AppointmentTypes");
+                });
+
+            modelBuilder.Entity("API.Models.Municipality", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("MunicipalityName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Municipalities");
+                });
+
+            modelBuilder.Entity("API.Models.Request", b =>
+                {
+                    b.Property<int>("RequestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RequestTypeID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RequestId");
+
+                    b.HasIndex("RequestTypeID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Requests");
+                });
+
+            modelBuilder.Entity("API.Models.RequestSubtype", b =>
+                {
+                    b.Property<int>("RequestSubtypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RequestSubtypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RequestTypeID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RequestSubtypeID");
+
+                    b.HasIndex("RequestTypeID");
+
+                    b.ToTable("RequestSubtypes");
+                });
+
+            modelBuilder.Entity("API.Models.RequestType", b =>
+                {
+                    b.Property<int>("RequestTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("RequestId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RequestTypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RequestTypeID");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("RequestTypes");
+                });
 
             modelBuilder.Entity("API.Models.User", b =>
                 {
@@ -139,13 +283,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1f0d30ec-8b83-4249-a8ca-a242a55b3e98",
+                            Id = "4855a841-d149-402c-a448-2dd86059f9f0",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "fe31bac2-ffa0-4cfe-b926-8ea3d337db3b",
+                            Id = "d943c70b-e94c-4fb6-9f84-b59ed4ca4514",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -253,6 +397,54 @@ namespace API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("API.Models.Appointment", b =>
+                {
+                    b.HasOne("API.Models.AppointmentType", "AppointmentType")
+                        .WithMany()
+                        .HasForeignKey("AppointmentTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppointmentType");
+                });
+
+            modelBuilder.Entity("API.Models.Request", b =>
+                {
+                    b.HasOne("API.Models.RequestType", "RequestType")
+                        .WithMany()
+                        .HasForeignKey("RequestTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.User", "User")
+                        .WithMany("Requests")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RequestType");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("API.Models.RequestSubtype", b =>
+                {
+                    b.HasOne("API.Models.RequestType", "RequestType")
+                        .WithMany("RequestSubTypeList")
+                        .HasForeignKey("RequestTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RequestType");
+                });
+
+            modelBuilder.Entity("API.Models.RequestType", b =>
+                {
+                    b.HasOne("API.Models.Request", null)
+                        .WithMany("RequestTypeList")
+                        .HasForeignKey("RequestId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -302,6 +494,21 @@ namespace API.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("API.Models.Request", b =>
+                {
+                    b.Navigation("RequestTypeList");
+                });
+
+            modelBuilder.Entity("API.Models.RequestType", b =>
+                {
+                    b.Navigation("RequestSubTypeList");
+                });
+
+            modelBuilder.Entity("API.Models.User", b =>
+                {
+                    b.Navigation("Requests");
                 });
 #pragma warning restore 612, 618
         }

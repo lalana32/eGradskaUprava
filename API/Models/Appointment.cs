@@ -8,6 +8,8 @@ namespace API.Models
     public class Appointment
     {
          public int AppointmentId { get; set; }
+         public AppointmentType AppointmentType { get; set; }
+         public string AppointmentTypeID { get; set; }
          public string UserEmail { get; set; }
         public DateTime CreatedAt { get; set; } =  DateTime.Now;
          public DateTime AppointmentDate { get; set; } // Datum

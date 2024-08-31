@@ -30,6 +30,10 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("AppointmentTypeID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -51,6 +55,8 @@ namespace API.Migrations
 
                     b.HasKey("AppointmentId");
 
+                    b.HasIndex("AppointmentTypeID");
+
                     b.ToTable("Appointments");
                 });
 
@@ -70,14 +76,19 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Municipality", b =>
                 {
-                    b.Property<string>("ZipCode")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("MunicipalityName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ZipCode");
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Municipalities");
                 });
@@ -94,10 +105,16 @@ namespace API.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("RequestTypeID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("RequestId");
+
+                    b.HasIndex("RequestTypeID");
 
                     b.HasIndex("UserId");
 
@@ -114,7 +131,7 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("RequestTypeID")
+                    b.Property<int>("RequestTypeID")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("RequestSubtypeID");
@@ -263,13 +280,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d809d96e-c23c-465b-8f5d-b3fdc1f8a4dd",
+                            Id = "4855a841-d149-402c-a448-2dd86059f9f0",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "98ca9eb9-8043-40cd-a55d-bdfae6357284",
+                            Id = "d943c70b-e94c-4fb6-9f84-b59ed4ca4514",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -377,18 +394,45 @@ namespace API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("API.Models.Appointment", b =>
+                {
+                    b.HasOne("API.Models.AppointmentType", "AppointmentType")
+                        .WithMany()
+                        .HasForeignKey("AppointmentTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppointmentType");
+                });
+
             modelBuilder.Entity("API.Models.Request", b =>
                 {
-                    b.HasOne("API.Models.User", null)
+                    b.HasOne("API.Models.RequestType", "RequestType")
+                        .WithMany()
+                        .HasForeignKey("RequestTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.User", "User")
                         .WithMany("Requests")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RequestType");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API.Models.RequestSubtype", b =>
                 {
-                    b.HasOne("API.Models.RequestType", null)
-                        .WithMany("RequestTypeList")
-                        .HasForeignKey("RequestTypeID");
+                    b.HasOne("API.Models.RequestType", "RequestType")
+                        .WithMany("RequestSubTypeList")
+                        .HasForeignKey("RequestTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RequestType");
                 });
 
             modelBuilder.Entity("API.Models.RequestType", b =>
@@ -456,7 +500,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.RequestType", b =>
                 {
-                    b.Navigation("RequestTypeList");
+                    b.Navigation("RequestSubTypeList");
                 });
 
             modelBuilder.Entity("API.Models.User", b =>

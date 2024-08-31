@@ -45,9 +45,6 @@ const DatePickerOne: React.FC<DatePickerOneProps> = ({ onDateChange }) => {
 
   return (
     <div>
-      <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-        Odaberite datum i vrijeme
-      </label>
       <div className="relative">
         <input
           ref={dateInputRef}

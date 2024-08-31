@@ -17,10 +17,34 @@ namespace API.Controllers
             _municipalityService= municipalityService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetAll()
+        [HttpPost("AddMunicipality")]
+        public async Task<IActionResult> AddMunicipality(Municipality municipality)
         {
-            return Ok(_municipalityService.GetAllMunicipalites());
+            return Ok(_municipalityService.AddMunicipality(municipality));
+        }
+
+        [HttpGet("GetMunicipality")]
+         public async Task<ActionResult> GetMunicipality(string zipCode)
+         {
+             return Ok(_municipalityService.GetMunicipality(zipCode));
+         }
+
+         [HttpGet("GetAllMunicipalities")]
+         public async Task<ActionResult<List<Municipality>>> GetAllMunicipalities()
+         {
+             return Ok(_municipalityService.GetAllMunicipalities());
+         }
+
+         [HttpPut("UpdateMunicipality")]
+        public async Task<IActionResult> UpdateMunicipality(string zipCode, Municipality updatedMunicipality)
+        {
+            return Ok(_municipalityService.UpdateMunicipality(zipCode, updatedMunicipality));
+        }
+        
+        [HttpDelete("DeleteMunicipality")]
+        public async Task<IActionResult> DeleteMunicipality(string zipCode)
+        {
+            return Ok(_municipalityService.DeleteMunicipality(zipCode));
         }
     }
 }

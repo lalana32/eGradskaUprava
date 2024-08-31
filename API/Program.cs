@@ -1,8 +1,8 @@
 global using System.ComponentModel.DataAnnotations;
+global using API.Data;
+global using API.Models;
+global using API.Services;
 using System.Text;
-using API.Data;
-using API.Models;
-using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -54,9 +54,10 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddScoped<TokenService>();
- builder.Services.AddTransient<IEmailService, EmailService>();
- builder.Services.AddScoped<IPDFService,PDFService>();
-  builder.Services.AddScoped<IMunicipalityService,MunicipalityService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddScoped<IPDFService,PDFService>();
+builder.Services.AddScoped<IMunicipalityService,MunicipalityService>();
+builder.Services.AddScoped<IAppointmentTypeService,AppointmentTypeService>();
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 builder.Services.AddSwaggerGen(c =>
 {

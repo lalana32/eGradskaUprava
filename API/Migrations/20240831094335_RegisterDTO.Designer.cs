@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20240831053906_db")]
-    partial class db
+    [Migration("20240831094335_RegisterDTO")]
+    partial class RegisterDTO
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,8 +59,9 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.AppointmentType", b =>
                 {
-                    b.Property<string>("AppointmentTypeID")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("AppointmentTypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("AppointmentTypeName")
                         .IsRequired()
@@ -266,13 +267,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d809d96e-c23c-465b-8f5d-b3fdc1f8a4dd",
+                            Id = "c7b7b90d-88c8-4934-a09c-d200f8958ff8",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "98ca9eb9-8043-40cd-a55d-bdfae6357284",
+                            Id = "39695e32-1bbe-497e-b5c1-75cd0c7205ad",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

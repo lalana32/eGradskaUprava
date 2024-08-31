@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    partial class StoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240830235354_db")]
+    partial class db
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -56,9 +59,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.AppointmentType", b =>
                 {
-                    b.Property<int>("AppointmentTypeID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("AppointmentTypeID")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("AppointmentTypeName")
                         .IsRequired()
@@ -264,13 +266,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c7b7b90d-88c8-4934-a09c-d200f8958ff8",
+                            Id = "94e20b8a-1997-4d50-b1f8-e7a47ef454c9",
                             Name = "Member",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
-                            Id = "39695e32-1bbe-497e-b5c1-75cd0c7205ad",
+                            Id = "fd9da859-dbda-4586-9e59-12c75656f8aa",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

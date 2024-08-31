@@ -17,7 +17,7 @@ namespace API.Models
 
             public  string AdresaPrebivalista {get;set;}
             public  string OpstinaPrebivalista{get;set;}
-            public  ICollection<Request> Requests{get;set;}
+            public  ICollection<Request>? Requests{get;set;}
          
          
 

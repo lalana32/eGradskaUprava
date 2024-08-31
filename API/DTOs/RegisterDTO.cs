@@ -13,5 +13,11 @@ namespace API.DTOs
         public required string Email {get;set;}
         public required string Password {get;set;}
         public required string JMBG { get; set; }
+
+        public  string Pol { get; set; }
+        public  DateOnly DatumRodjenja {get;set;}
+
+        public  string AdresaPrebivalista {get;set;}
+        public  string OpstinaPrebivalista{get;set;}
     }
 }

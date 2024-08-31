@@ -2,24 +2,15 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-# Ignore Visual Studio specific files and folders
 /.vs
-/.vs/slnx.sqlite
-
-# Ignore build outputs
-/API/bin/
-/API/obj/
-
-# Ignore NuGet cache files
+/API/obj/Release/net7.0
+/API/obj/Debug/net7.0/API.AssemblyInfo.cs
+/API/obj/Debug/net7.0/API.AssemblyInfoInputs.cache
 /API/obj/API.csproj.nuget.dgspec.json
-/API/obj/API.csproj.nuget.g.props
-/API/obj/project.assets.json
 /API/obj/project.nuget.cache
-
-# Ignore SQLite database files
-/API/store.db
-/API/store.db-shm
-/API/store.db-wal
-API/store.db-shm
-API/store.db-wal
+/.vs/slnx.sqlite
+/API
+.vs/eGradskaUprava/FileContentIndex/86453ca1-64e2-4f8d-b318-007f3f671ac2.vsidx
 *.db
+*.db-shm
+*.db-wal

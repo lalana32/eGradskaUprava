@@ -15,8 +15,9 @@ namespace API.Models
             public  required string Pol { get; set; }
             public  required DateOnly DatumRodjenja {get;set;}
 
-            public   string AdresaPrebivalista {get;set;}
-            public   string OpstinaPrebivalista{get;set;}
+            public  string AdresaPrebivalista {get;set;}
+            public  string OpstinaPrebivalista{get;set;}
+            public  ICollection<Request> Requests{get;set;}
          
          
 

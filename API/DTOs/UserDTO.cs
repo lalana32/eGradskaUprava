@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace API.DTOs
 {
    public class UserDTO
-{
+    {
     public required string Email { get; set; }
     public required string Token { get; set; }
     public required string UserName { get; set; }
@@ -16,9 +16,10 @@ namespace API.DTOs
 
     public  string AdresaPrebivalista {get;set;}
     public  string OpstinaPrebivalista{get;set;}
+    public  DateTime? DatumRodjenja{get;set;} = null;
   
     public required string JMBG { get; set; }
-    public List<string> Roles { get; set; }
-}
+    public List<string>? Roles { get; set; } = null;
 
+    }
 }

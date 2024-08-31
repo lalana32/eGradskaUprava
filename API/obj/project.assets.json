@@ -6221,23 +6221,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\goran\\.nuget\\packages\\": {},
+    "C:\\Users\\ikano\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\goran\\OneDrive\\Desktop\\eGradskaUprava\\api\\API.csproj",
+      "projectUniqueName": "C:\\Users\\ikano\\source\\repos\\lalana32\\eGradskaUprava\\api\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\goran\\OneDrive\\Desktop\\eGradskaUprava\\api\\API.csproj",
-      "packagesPath": "C:\\Users\\goran\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\goran\\OneDrive\\Desktop\\eGradskaUprava\\api\\obj\\",
+      "projectPath": "C:\\Users\\ikano\\source\\repos\\lalana32\\eGradskaUprava\\api\\API.csproj",
+      "packagesPath": "C:\\Users\\ikano\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ikano\\source\\repos\\lalana32\\eGradskaUprava\\api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\goran\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ikano\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -6246,6 +6246,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -6258,11 +6259,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -6341,7 +6337,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.108\\RuntimeIdentifierGraph.json"
       }
     }
   }

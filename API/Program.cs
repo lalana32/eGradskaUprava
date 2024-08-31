@@ -56,6 +56,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<TokenService>();
  builder.Services.AddTransient<IEmailService, EmailService>();
  builder.Services.AddScoped<IPDFService,PDFService>();
+  builder.Services.AddScoped<IMunicipalityService,MunicipalityService>();
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 builder.Services.AddSwaggerGen(c =>
 {

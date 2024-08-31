@@ -177,7 +177,7 @@ const Settings = () => {
                 type="submit"
                 className="mt-5 w-full rounded bg-primary py-3 px-4.5 text-white"
               >
-                Save Changes
+                Sačuvajte promjene
               </button>
             </form>
           </div>

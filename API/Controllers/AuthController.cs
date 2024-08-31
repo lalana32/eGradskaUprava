@@ -43,6 +43,8 @@ namespace API.Controllers
                 UserName = user.UserName!,
                 JMBG = user.JMBG,
                 Roles = roles.ToList(),
+                AdresaPrebivalista = user.AdresaPrebivalista,
+                OpstinaPrebivalista = user.OpstinaPrebivalista,
             };
 
         }
@@ -55,6 +57,8 @@ namespace API.Controllers
                 UserName = registerDTO.UserName,
                 Email = registerDTO.Email,
                 JMBG = registerDTO.JMBG,
+                Pol = registerDTO.Pol,
+                DatumRodjenja = registerDTO.DatumRodjenja,
             };
             
             var result=await _userManager.CreateAsync(user,registerDTO.Password);

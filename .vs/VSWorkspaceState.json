@@ -1,15 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\API",
-    "\\API\\Controllers",
-    "\\API\\Data",
-    "\\API\\DTOs",
-    "\\API\\Models",
-    "\\API\\Services",
-    "\\API\\Services\\Interfaces",
     "\\front"
   ],
-  "SelectedNode": "\\API\\bin",
   "PreviewInSolutionExplorer": false
 }

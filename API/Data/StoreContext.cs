@@ -32,11 +32,9 @@ namespace API.Data
 
             // Configure relationships
         
-            builder.Entity<Appointment>()
-        .HasOne(a => a.AppointmentType)
-        .WithMany()
-        .HasForeignKey(a => a.AppointmentTypeID)
-        .OnDelete(DeleteBehavior.Cascade);
+          
+        
+       
 
 
         builder.Entity<Request>()
@@ -57,7 +55,7 @@ builder.Entity<RequestSubtype>()
         }
 
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<AppointmentType> AppointmentTypes { get; set; }
+      
         public DbSet<Municipality> Municipalities { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<RequestType> RequestTypes { get; set; }

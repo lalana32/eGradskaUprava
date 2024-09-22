@@ -7,6 +7,6 @@ export interface User {
   adresaPrebivalista: string;
   opstinaPrebivalista: string;
   roles?: string[];
-
+  id: string;
   jmbg: string;
 }

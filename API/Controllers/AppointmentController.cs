@@ -18,14 +18,14 @@ namespace API.Controllers
     public class AppointmentController : ControllerBase
     {
         private readonly StoreContext _context;
-        private readonly IMapper _mapper;
+      
         private readonly UserManager<User> _userManager;
 
-        public AppointmentController(StoreContext context, IMapper mapper, UserManager<User> userManager)
+        public AppointmentController(StoreContext context, UserManager<User> userManager)
         {
             _userManager = userManager;
             _context = context;
-            _mapper = mapper;
+          
         }
 
         
@@ -52,7 +52,7 @@ namespace API.Controllers
 
       
         [HttpGet("{id}")]
-        public async Task<ActionResult<Appointment>> GetAppointment(string id)
+        public async Task<ActionResult<Appointment>> GetAppointment(int id)
         {
             var appointment = await _context.Appointments.FindAsync(id);
 
@@ -100,6 +100,7 @@ namespace API.Controllers
                 ServiceSubType = appointmentDto.ServiceSubType,
                 UserId = user.Id ,
                 UserEmail = appointmentDto.UserEmail,
+                
             };
 
             _context.Appointments.Add(appointment);

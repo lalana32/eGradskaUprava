@@ -45,6 +45,7 @@ namespace API.Controllers
                 Roles = roles.ToList(),
                 AdresaPrebivalista = user.AdresaPrebivalista,
                 OpstinaPrebivalista = user.OpstinaPrebivalista,
+                Id =  user.Id,
             };
 
         }
@@ -111,7 +112,7 @@ namespace API.Controllers
                 Token = await _tokenService.GenerateToken(user),
                 UserName = user.UserName!,
                 JMBG = user.JMBG,
-
+                Id = user.Id,
             };
 
             return Ok(userDTO); // Vrati uspešan odgovor sa DTO-om

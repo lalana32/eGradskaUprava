@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 
@@ -22,7 +22,23 @@ const SignUp: React.FC = () => {
     DatumRodjenja: '',
   });
 
-  const opstine = ['Opština1', 'Opština2', 'Opština3', 'Opština4'];
+  const [municipalities, setMunicipalities] = useState<any[]>([]); // Promenite tip prema potrebama
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Funkcija za preuzimanje podataka
+    const fetchMunicipalities = async () => {
+      try {
+        const response = await agent.Municipalities.getAll(); // Pozovite getAll metodu
+        setMunicipalities(response.result); // Pretpostavljam da `response` ima `data` property
+      } catch (err) {
+        setError('Došlo je do greške pri preuzimanju opština.');
+        console.error(err); // Logujte grešku za debugging
+      }
+    };
+
+    fetchMunicipalities(); // Pozovite funkciju za preuzimanje podataka
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -322,14 +338,13 @@ const SignUp: React.FC = () => {
                     </label>
                     <select
                       name="OpstinaPrebivalista"
-                      id="OpstinaPrebivalista"
+                      value={formData.OpstinaPrebivalista}
                       onChange={handleChange}
-                      className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     >
-                      <option value="">Izaberite opštinu</option>
-                      {opstine.map((opstina, index) => (
-                        <option key={index} value={opstina}>
-                          {opstina}
+                      {municipalities.map((municipality) => (
+                        <option key={municipality.id} value={municipality.id}>
+                          {municipality.municipalityName}{' '}
+                          {/* Ensure you access the property correctly */}
                         </option>
                       ))}
                     </select>

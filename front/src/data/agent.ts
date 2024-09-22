@@ -45,8 +45,55 @@ const Appointments = {
     request.delete(`Appointment/delete${id}`, token),
 };
 
+const Municipalities = {
+  getAll: (token?: string) => request.get('Municipality/GetAllMunicipalities'),
+};
+
+const Email = {
+  sendPassport: (
+    userId: string,
+    toEmail: string,
+    subject: string,
+    message: string,
+    token?: string,
+  ) =>
+    request.post(
+      `Email/send-passport-pdf?userId=${userId}&toEmail=${toEmail}&subject=${encodeURIComponent(subject)}&message=${encodeURIComponent(message)}`,
+      {},
+      token,
+    ),
+
+  sendIdCard: (
+    userId: string,
+    toEmail: string,
+    subject: string,
+    message: string,
+    token?: string,
+  ) =>
+    request.post(
+      `Email/send-pdf?userId=${userId}&toEmail=${toEmail}&subject=${encodeURIComponent(subject)}&message=${encodeURIComponent(message)}`,
+      {},
+      token,
+    ),
+
+  sendDriverLicence: (
+    userId: string,
+    toEmail: string,
+    subject: string,
+    message: string,
+    token?: string | undefined,
+  ) =>
+    request.post(
+      `Email/send-driver-license-email?userId=${userId}&toEmail=${toEmail}&subject=${encodeURIComponent(subject)}&message=${encodeURIComponent(message)}`,
+      {},
+      token,
+    ),
+};
+
 const agent = {
   Auth,
   Appointments,
+  Municipalities,
+  Email,
 };
 export default agent;

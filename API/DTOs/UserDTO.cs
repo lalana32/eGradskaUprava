@@ -20,6 +20,7 @@ namespace API.DTOs
   
     public required string JMBG { get; set; }
     public List<string>? Roles { get; set; } = null;
+    public required string Id {get; set; }
 
     }
 }

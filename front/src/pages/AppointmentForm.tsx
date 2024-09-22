@@ -20,6 +20,7 @@ const AppointmentForm = () => {
   const navigate = useNavigate();
 
   const token = useAppSelector((state) => state.auth.user?.token);
+  const user = useAppSelector((state) => state.auth.user);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,9 +35,51 @@ const AppointmentForm = () => {
     };
 
     try {
-      const response = await agent.Appointments.add(formData, token);
-      console.log(response);
+      // Poziv za dodavanje termina
+      await agent.Appointments.add(formData, token);
       alert('Uspješno ste zakazali termin.');
+
+      // Na osnovu izabrane kategorije, pozovite odgovarajuću funkciju
+      switch (selectedCategory) {
+        case 'Izdavanje dokumenata':
+          if (selectedSubcategory === 'Pasoš') {
+            await agent.Email.sendPassport(
+              user!.id, // userId
+              'slalovic54@gmail.com', // toEmail
+              'Pasoš', // subject
+              'Vaš zahtjev za izdavanje je primljen', // message
+              token, // token
+            );
+          } else if (selectedSubcategory === 'Lična karta') {
+            await agent.Email.sendIdCard(
+              user!.id, // userId
+              user!.email, // toEmail
+              'Lična karta', // subject
+              'Vaš zahtjev za izdavanje je primljen', // message
+              token, // token
+            );
+          } else if (selectedSubcategory === 'Vozačka dozvola') {
+            await agent.Email.sendIdCard(
+              user!.id, // userId
+              user!.email, // toEmail
+              'Vozačka dozvola', // subject
+              'Vaš zahtjev za izdavanje je primljen', // message
+              token, // token
+            );
+          }
+          break;
+        // Dodajte druge kategorije i subkategorije ako je potrebno
+        case 'Plaćanje javnih usluga':
+          // Ovdje možete dodati logiku za "Plaćanje javnih usluga"
+          break;
+        case 'Zahtjevi za dozvole':
+          // Ovdje možete dodati logiku za "Zahtjevi za dozvole"
+          break;
+        default:
+          break;
+      }
+
+      // Preusmjeravanje nakon uspješne rezervacije
       navigate('/my-appointments');
     } catch (error) {
       console.error('Error adding appointment:', error);

@@ -43,11 +43,22 @@ namespace API.Controllers
                 UserName = user.UserName!,
                 JMBG = user.JMBG,
                 Roles = roles.ToList(),
+                AdresaPrebivalista = user.AdresaPrebivalista,
+                OpstinaPrebivalista = user.OpstinaPrebivalista,
+                Id =  user.Id,
             };
 
         }
         [HttpPost("register")]
         public async Task<ActionResult> Register (RegisterDTO registerDTO){
+
+            DateOnly datumRodjenja;
+            if (!DateOnly.TryParseExact(registerDTO.DatumRodjenja, "yyyy-MM-dd", out datumRodjenja))
+            {
+                ModelState.AddModelError("DatumRodjenja", "DatumRodjenja mora biti u formatu 'yyyy-MM-dd'.");
+                return ValidationProblem();
+            }
+
             var user =new User 
             {   
                 FirstName = registerDTO.FirstName,
@@ -55,6 +66,10 @@ namespace API.Controllers
                 UserName = registerDTO.UserName,
                 Email = registerDTO.Email,
                 JMBG = registerDTO.JMBG,
+                Pol = registerDTO.Pol,
+                AdresaPrebivalista = registerDTO.AdresaPrebivalista,
+                OpstinaPrebivalista = registerDTO.OpstinaPrebivalista,
+                DatumRodjenja = datumRodjenja,
             };
             
             var result=await _userManager.CreateAsync(user,registerDTO.Password);
@@ -97,7 +112,7 @@ namespace API.Controllers
                 Token = await _tokenService.GenerateToken(user),
                 UserName = user.UserName!,
                 JMBG = user.JMBG,
-
+                Id = user.Id,
             };
 
             return Ok(userDTO); // Vrati uspešan odgovor sa DTO-om

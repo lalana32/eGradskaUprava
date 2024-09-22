@@ -19,6 +19,7 @@ import QueueDocuments from './pages/Queue/QueueDocuments';
 import QueueRequests from './pages/Queue/QueueRequests';
 import QueuePaying from './pages/Queue/QueuePaying';
 import MyAppointments from './pages/MyAppointments';
+import DriftChat from './pages/UiElements/driftchat';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);

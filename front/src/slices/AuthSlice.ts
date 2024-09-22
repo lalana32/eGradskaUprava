@@ -18,6 +18,8 @@ export const logIn = createAsyncThunk<User, FieldValues>(
     try {
       const user = await agent.Auth.login(arg);
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('userId', JSON.stringify(user.userId));
+
       return user;
     } catch (error) {
       return thunkAPI.rejectWithValue('Došlo je do greške');

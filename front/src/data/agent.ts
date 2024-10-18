@@ -9,6 +9,10 @@ const request = {
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     return axios.get(url, { headers }).then(responseBody);
   },
+  getFile: (url: string, token?: string) => {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    return axios.get(url, { headers, responseType: 'blob' }).then(responseBody);
+  },
   post: (url: string, body: {}, token?: string) => {
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     return axios.post(url, body, { headers }).then(responseBody);
@@ -21,6 +25,13 @@ const request = {
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     return axios.delete(url, { headers }).then(responseBody);
   },
+};
+
+const FileExport = {
+  exportCsv: (token?: string) => request.getFile('CSVExport/export', token),
+  exportPdf: (token?: string) => request.getFile('PDFExport/export-pdf', token),
+  exportXlsx: (token?: string) =>
+    request.getFile('XLSXExport/export-xlsx', token),
 };
 
 const Auth = {
@@ -94,6 +105,8 @@ const agent = {
   Auth,
   Appointments,
   Municipalities,
+  FileExport,
   Email,
 };
+
 export default agent;

@@ -46,7 +46,7 @@ builder.Services.AddCors(options =>
     {
         policy.AllowAnyMethod()
               .AllowAnyHeader()
-              .WithOrigins("http://localhost:5173") // Add your frontend origin here
+              .WithOrigins("http://localhost:5173", "http://10.0.10.121:5173") // Add your frontend origin here
               .AllowCredentials(); // Allow credentials if needed
     });
 });
@@ -57,6 +57,7 @@ builder.Services.AddScoped<TokenService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddScoped<IPDFService,PDFService>();
 builder.Services.AddScoped<IMunicipalityService,MunicipalityService>();
+builder.Services.AddSingleton<TwilioService>();
 
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 builder.Services.AddSwaggerGen(c =>

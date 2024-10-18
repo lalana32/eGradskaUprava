@@ -53,13 +53,13 @@ const AppointmentForm = () => {
           } else if (selectedSubcategory === 'Lična karta') {
             await agent.Email.sendIdCard(
               user!.id, // userId
-              user!.email, // toEmail
+              'slalovic54@gmail.com', // toEmail
               'Lična karta', // subject
               'Vaš zahtjev za izdavanje je primljen', // message
               token, // token
             );
           } else if (selectedSubcategory === 'Vozačka dozvola') {
-            await agent.Email.sendIdCard(
+            await agent.Email.sendDriverLicence(
               user!.id, // userId
               user!.email, // toEmail
               'Vozačka dozvola', // subject

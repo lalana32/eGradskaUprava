@@ -60,5 +60,6 @@ builder.Entity<RequestSubtype>()
         public DbSet<Request> Requests { get; set; }
         public DbSet<RequestType> RequestTypes { get; set; }
         public DbSet<RequestSubtype> RequestSubtypes { get; set; }
+       
     }
 }

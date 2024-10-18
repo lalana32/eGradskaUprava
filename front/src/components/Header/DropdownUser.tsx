@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import ClickOutside from '../ClickOutside';
 import UserOne from '../../images/user/user-01.png';
 import { AppDispatch, useAppSelector } from '../../store/configureStore';
@@ -25,7 +25,17 @@ const DropdownUser = () => {
         .toUpperCase()}`
     : '';
 
-  if(!user) return <div><h1>prijavi se</h1></div>
+  if (!user)
+    return (
+      <div>
+        <NavLink
+          to="/auth/signin"
+          className="bg-primary text-white py-2 px-4 rounded"
+        >
+          Prijavi se
+        </NavLink>
+      </div>
+    );
 
   return (
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">

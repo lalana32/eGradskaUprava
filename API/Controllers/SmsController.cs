@@ -1,8 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
+using System.IO;
+using System.Text.RegularExpressions;
+using Tesseract;
 
 namespace API.Controllers
 {
@@ -23,5 +24,7 @@ namespace API.Controllers
             _twilioService.SendSms(request.To, request.Message);
             return Ok("Message sent successfully.");
         }
+
+        
     }
 }

@@ -1,50 +1,65 @@
-using  API.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;  // Required for EF Core
-using System.Collections.Generic;  // Required for List<>
-using System.Linq;  // Required for LINQ methods like ToList()
-using System.Threading.Tasks;
+using System.IO;
+using System.Text.RegularExpressions;
+using Tesseract;
+
 namespace API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class MunicipalityController:ControllerBase
+    [ApiController]
+    public class OcrController : ControllerBase
     {
-        private readonly IMunicipalityService _municipalityService;
+        private readonly string _tessDataPath = Path.Combine(Directory.GetCurrentDirectory(), "tessdata");
 
-        public MunicipalityController(IMunicipalityService municipalityService)
+        [HttpPost("upload")]
+        public IActionResult UploadImage(IFormFile file)
         {
-            _municipalityService= municipalityService;
+            if (file == null || file.Length == 0)
+                return BadRequest("Fajl nije pronađen.");
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "uploads", file.FileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            string extractedText = PerformOcr(filePath);
+            string result = ExtractJMBG(extractedText);
+
+            return Ok(new { jmbg = result });
         }
 
-        [HttpPost("AddMunicipality")]
-        public async Task<IActionResult> AddMunicipality(Municipality municipality)
+        private string PerformOcr(string imagePath)
         {
-            return Ok(_municipalityService.AddMunicipality(municipality));
+            using (var engine = new TesseractEngine(_tessDataPath, "sr", EngineMode.Default))
+            {
+                using (var img = Pix.LoadFromFile(imagePath))
+                {
+                    using (var page = engine.Process(img))
+                    {
+                        return page.GetText();
+                    }
+                }
+            }
         }
 
-        [HttpGet("GetMunicipality")]
-         public async Task<ActionResult> GetMunicipality(string zipCode)
-         {
-             return Ok(_municipalityService.GetMunicipality(zipCode));
-         }
-
-         [HttpGet("GetAllMunicipalities")]
-         public async Task<ActionResult<List<Municipality>>> GetAllMunicipalities()
-         {
-             return Ok(_municipalityService.GetAllMunicipalities());
-         }
-
-         [HttpPut("UpdateMunicipality")]
-        public async Task<IActionResult> UpdateMunicipality(string zipCode, Municipality updatedMunicipality)
+        private string ExtractJMBG(string ocrText)
         {
-            return Ok(_municipalityService.UpdateMunicipality(zipCode, updatedMunicipality));
-        }
-        
-        [HttpDelete("DeleteMunicipality")]
-        public async Task<IActionResult> DeleteMunicipality(string zipCode)
-        {
-            return Ok(_municipalityService.DeleteMunicipality(zipCode));
+            // Prikazivanje prepoznatog teksta
+            Console.WriteLine($"Prepoznati tekst: {ocrText}");
+
+            // Regularni izraz za pretragu JMBG
+            var match = Regex.Match(ocrText, @"\b\d{13}\b");
+
+            if (match.Success)
+            {
+                string jmbg = match.Value;
+                return $"Matični broj: {jmbg}";
+            }
+
+            return "Matični broj nije prepoznat.";
         }
     }
 }

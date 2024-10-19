@@ -5,6 +5,7 @@ import agent from '../data/agent';
 import { useAppSelector } from '../store/configureStore';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import { useNavigate } from 'react-router-dom';
+import UserNotLoggedIn from '../components/UserNotLoggedIn';
 
 type Category =
   | 'Izdavanje dokumenata'
@@ -86,12 +87,7 @@ const AppointmentForm = () => {
     }
   };
 
-  if (!token)
-    return (
-      <div className="text-center">
-        <Breadcrumb pageName="Samo prijavljeni korisnici mogu pristupiti ovoj stranici" />
-      </div>
-    );
+  if (!token) return <UserNotLoggedIn />;
 
   return (
     <>
@@ -170,7 +166,7 @@ const AppointmentForm = () => {
           </div>
         </div>
       </form>
-      );
+
       {/* <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="relative z-20 h-35 md:h-65">
           <img

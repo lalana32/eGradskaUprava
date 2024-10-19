@@ -3,6 +3,7 @@ import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import { useAppSelector } from '../store/configureStore';
 import agent from '../data/agent';
 import { useNavigate } from 'react-router-dom';
+import UserNotLoggedIn from '../components/UserNotLoggedIn';
 
 const Settings = () => {
   const { user } = useAppSelector((state) => state.auth);
@@ -40,12 +41,7 @@ const Settings = () => {
     }
   };
 
-  if (!user)
-    return (
-      <div className="text-center">
-        <Breadcrumb pageName="Samo prijavljeni korisnici mogu pristupiti ovoj stranici" />
-      </div>
-    );
+  if (!user) return <UserNotLoggedIn />;
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">

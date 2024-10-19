@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import agent from '../../data/agent';
+import DocumentUpload from '../../components/DocumentUpload';
 
 const HomePage: React.FC = () => {
   const [appointments, setAppointments] = useState<any[]>([]);
@@ -101,6 +102,7 @@ const HomePage: React.FC = () => {
         </div>
       </div>
       <br />
+      <DocumentUpload />
 
       {/* ovo ispod cemo prebaciti u druge komponente  */}
       {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">

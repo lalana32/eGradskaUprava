@@ -101,12 +101,22 @@ const Email = {
     ),
 };
 
+const Documents = {
+  upload: (file: File, token?: string) => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return request.post('Document/upload', formData, token);
+  },
+};
+
 const agent = {
   Auth,
   Appointments,
   Municipalities,
   FileExport,
   Email,
+  Documents,
 };
 
 export default agent;

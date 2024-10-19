@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ConfirmDialog from '../components/ConfirmDialog/ConfirmDialog';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import UserNotLoggedIn from '../components/UserNotLoggedIn';
 
 const MyAppointments = () => {
   const [appointments, setAppointments] = useState<any[]>([]);
@@ -86,12 +87,7 @@ const MyAppointments = () => {
 
   if (loading) return <div className="text-center">Učitavanje...</div>;
 
-  if (!token)
-    return (
-      <div className="text-center">
-        <Breadcrumb pageName="Samo prijavljeni korisnici mogu pristupiti ovoj stranici" />
-      </div>
-    );
+  if (!token) return <UserNotLoggedIn />;
 
   return (
     <>
